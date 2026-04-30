@@ -46,5 +46,13 @@ class ContatoUI:
         if len(cls.contatos) ==0:print("nemhum contato na agenda")
         else:
             for x in cls.contatos: print(x)
+    @classmethod
+    def atualizar(cls,id,nome,email,fone):
+        o = int(input('você quer atualizar o que(1-id 2-nome 3-mail 4- telefone)'))
+        while o != 6:
+            if o==1:
+             id=int(input('digite seu novo id'))
+             x=contato(id,nome,email,fone)
+             cls.contatos.append(x)
 
 ContatoUI.main()
