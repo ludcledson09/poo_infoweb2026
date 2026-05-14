@@ -28,6 +28,9 @@ class ContatoUI:
             op = ContatoUI.menu()
             if op==1:ContatoUI.inserir()
             if op==2:ContatoUI.listar()
+            if op==3:ContatoUI.atualizar()
+            if op==4:ContatoUI.excluir()
+            if op==5:ContatoUI.pesquisar()
     @staticmethod
     def menu():
         print("1-inseir 2-lista 3-atualizar 4- excluir 5-pesquiar 6- fim")
@@ -54,5 +57,29 @@ class ContatoUI:
              id=int(input('digite seu novo id'))
              x=contato(id,nome,email,fone)
              cls.contatos.append(x)
+    @classmethod
+    def atualizar(cls):
+        ContatoUI.listar()
+        id = int(input("informe o id do contato a ser alterado: "))
+        x=ContatoUI.listar_id(id)
+        if x != None:
+            cls.contatos.remove(x)
+            nome=input("informe o novo nome: ")
+            email=input("informe o novo e-mail: ")
+            fone=input("informe o novo telefone: ")
+            x=contato(id,nome,email,fone)
+    @classmethod
+    def exluir(cls):
+        id=(input("informe o id do contato a ser excluido: "))
+        x=ContatoUI.listar_id(id)
+        if x != None:
+            cls.contatos.remove
+    @classmethod
+    def pesquisar(cls):
+        iniciais = input("Informe as iniciais do contato: ")
+        for x in cls.contatos:
+            if x.get_nome().startswith(iniciais): print(x)
+
+
 
 ContatoUI.main()
