@@ -40,5 +40,5 @@ def abrir():
         print(x)
 
 salvar()
-abrir()
+#abrir()
 
