@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from pathlib import Path
 
@@ -66,7 +67,7 @@ class Jogo:
         if fase  ==  "": raise ValueError("Fase deve ser informada")
         self.__fase = fase
     def set_data_hora(self, data_hora):
-        if data_hora == "": raise ValueError("Data e hora deve ser informada")
+        if type(data_hora) !=datetime: raise ValueError("Data e hora deve ser informada")
         self.__data_hora = data_hora
 
     def get_id(self) : return self.__id
@@ -81,29 +82,63 @@ class Jogo:
         return f"{self.__id} - {self.__id_pais1} - {self.__id_pais2} - {self.__gols1} - {self.__gols2} - {self.__fase} - {self.__data_hora}"
    
     def to_json(self):
-        return { "id":self.__id, "id_pais1":self.__id_pais1, "pais2":self.__id_pais2, "gols1":self.__gols1, "gols2":self.__gols2,"fase":self.__fase,"data_hora":self.__data_hora  }
+        return { "id":self.__id, "id_pais1":self.__id_pais1, "pais2":self.__id_pais2, "gols1":self.__gols1, "gols2":self.__gols2,"fase":self.__fase,"data_hora":self.__data_hora.strftime('%d/%m/%Y %H:%M')  }
    
     @staticmethod
     def from_json(dic):
-        return Jogo(dic["id"], dic["id_pais1"], dic["id_pais2"], dic["gols1"], dic["gols2"], dic["fase"], dic["data_hora"])
+        return Jogo(dic["id"], dic["id_pais1"], dic["id_pais2"], dic["gols1"], dic["gols2"], dic["fase"], datetime.strptime(dic["data_hora"], '%d/%m/%Y %H:%M'))
+
+class UI:
+    paises = []
+    jogos = []
+    @staticmethod
+    def main():
+       op = 0 
+       while op !=9:
+           op = UI.menu()
+           if op == 1: UI.inserir_pais()
+           if op == 2: UI.listar_paises()
+           if op == 3: UI.inserir_jogo()
+           if op == 4: UI.listar_jogos()
+    @staticmethod
+    def menu():
+        print("1-inserir país, 2-listar países, 3-inserir jogo, 4-listar jogos, 9-fim")
+        return int(input("escolha uma opção: "))
     
     @classmethod
-    def inserir(cls):
+    def inserir_pais(cls):
+        print("Insira os dados do pais")
         id = int(input("Informe o id: "))
-        id_pais1 = input("Informe o pais: ")
-        id_pais2 = input("Informe o pais: ")
-        gols1 = input("Informe o numero de gols: ")
-        gols2 = input("Informe o numero de gols: ")
-        fase = input("Informe a fase: ")
-        data_hora = input("Informe a data e a hora: ")
-        x = Pais(id, id_pais1, id_pais2, gols1, gols2, fase, data_hora)
-        cls.__objetos.append(x)
-        PaisUI.salvar()
+        nome = input("Informe o nome: ")
+        sigla = input("Informe a sigla: ")
+        grupo = input("Informe o grupos: ")
+        x = Pais(id, nome, sigla, grupo)
+        cls.paises.append(x)
 
     @classmethod
-    def listar(cls):                
-        for x in cls.__objetos: print(x)
+    def listar_paises(cls):                
+        for x in cls.paises: print(x)
         
+    @classmethod
+    def inserir_jogo(cls):
+        print("Insira os dados do jogo")
+        id = int(input("Informe o id: "))
+        id_pais1 = int(input("Informe o id do pais 1: "))
+        id_pais2 = int(input("Informe o id do pais 2: "))
+        gols1 = int(input("Informe o numero de gols 1: "))
+        gols2 = int(input("Informe o numero de gols 2: "))
+        fase = input("Informe a fase: ")
+        data_hora = datetime.strptime(input("Informe a data e a hora: "), "%d/%m/%Y %H:%M")
+        x = Jogo(id, id_pais1, id_pais2, gols1, gols2, fase, data_hora)
+        cls.jogos.append(x)
+    
+
+    @classmethod
+    def listar_jogos(cls):                
+        for x in cls.jogos: print(x)
+    
+UI.main()
+"""
 class PaisUI:
     __objetos = []
     __pais_json = Path(__file__).resolve().parent / "pais.json"
@@ -180,3 +215,4 @@ class PaisUI:
             PaisUI.salvar()
 
 PaisUI.main()
+"""
