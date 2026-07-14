@@ -8,6 +8,9 @@ class ClienteDAO:
         self.__abrir()
 
     def inserir(self, obj):
+        email = obj.get_email()
+        for aux in self.__objetos:
+            if aux.get_email() == email: raise ValueError("E-mail ja cadastrado")
         self.__objetos.append(obj)
         self.__salvar()
 

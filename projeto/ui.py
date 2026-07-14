@@ -1,4 +1,5 @@
 from service import Service
+from datetime import datetime
 
 class UI:
     @staticmethod
@@ -31,7 +32,8 @@ class UI:
         nome = input("Informe o nome: ")
         email = input("Informe o e-mail: ")
         fone = input("Informe o telefone: ")
-        Service.cliente_inserir(id, nome, email, fone)
+        nasc = datetime.strptime(input("Informe a data de nascimento: "),'%d/%m/%Y')
+        Service.cliente_inserir(id, nome, email, fone, nasc)
 
     @staticmethod
     def cliente_listar():
