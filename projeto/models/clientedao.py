@@ -8,9 +8,12 @@ class ClienteDAO:
         self.__abrir()
 
     def inserir(self, obj):
-        email = obj.get_email()
-        for aux in self.__objetos:
-            if aux.get_email() == email: raise ValueError("E-mail ja cadastrado")
+        # gerar um novo id com o maior valor existente mais um
+        id = 0
+        if len(self.__objetos) > 0:
+            for aux in self.__objetos:
+                if aux.get_id() > id: id = aux.get_id()
+        obj.set_id(id + 1)
         self.__objetos.append(obj)
         self.__salvar()
 
@@ -51,3 +54,4 @@ class ClienteDAO:
         arquivo = open(self.__arquivo, mode = "w")
         json.dump(self.__objetos, arquivo, default = Cliente.to_json, indent = 2)
         arquivo.close()
+        

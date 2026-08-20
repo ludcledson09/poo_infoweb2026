@@ -1,5 +1,4 @@
 from service import Service
-from datetime import datetime
 
 class UI:
     @staticmethod
@@ -18,22 +17,21 @@ class UI:
 
     @staticmethod
     def menu():
-        print("-----Cadastro de Clientes-----")
+        print("----------- Cadastro de Clientes ----------")
         print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir")
-        print("-----Cadastro de Serviços-----")
+        print("----------- Cadastro de Serviços ----------")
         print("5-Inserir, 6-Listar, 7-Atualizar, 8-Excluir")
-        print("-----------Outras opções-----------")
-        print("9-fim")
+        print("----------- Outras opções -----------------")
+        print("9-Fim")
         return int(input("Informe uma opção: "))
 
     @staticmethod
     def cliente_inserir():
-        id = int(input("Informe o id: "))
+        #id = int(input("Informe o id: "))
         nome = input("Informe o nome: ")
         email = input("Informe o e-mail: ")
         fone = input("Informe o telefone: ")
-        nasc = datetime.strptime(input("Informe a data de nascimento: "),'%d/%m/%Y')
-        Service.cliente_inserir(id, nome, email, fone, nasc)
+        Service.cliente_inserir(nome, email, fone)
 
     @staticmethod
     def cliente_listar():
@@ -56,10 +54,10 @@ class UI:
 
     @staticmethod
     def servico_inserir():
-        id = int(input("Informe o id: "))
-        descricao = input("Informe a descricao: ")
+        #id = int(input("Informe o id: "))
+        descricao = input("Informe a descrição: ")
         valor = float(input("Informe o valor: "))
-        Service.servico_inserir(id, descricao, valor )
+        Service.servico_inserir(descricao, valor)
 
     @staticmethod
     def servico_listar():
@@ -67,15 +65,15 @@ class UI:
 
     @staticmethod
     def servico_atualizar():
-        for obj in Service().servico_listar(): print(obj)
-        id = int(input("Informe o id do servico a ser atualizado: "))
-        nome = input("Informe a nova descricao : ")
-        valor = input("Informe o novo valor: ")
-        Service.servico_atualizar(id, nome, valor)
+        for obj in Service.servico_listar(): print(obj)
+        id = int(input("Informe o id do serviço a ser atualizado: "))
+        descricao = input("Informe a nova descrição: ")
+        valor = float(input("Informe o novo valor: "))
+        Service.servico_atualizar(id, descricao, valor)
 
     @staticmethod
     def servico_excluir():
-        for obj in Service().servico_listar(): print(obj)
+        for obj in Service.servico_listar(): print(obj)
         id = int(input("Informe o id do serviço a ser excluído: "))
         Service.servico_excluir(id)
 

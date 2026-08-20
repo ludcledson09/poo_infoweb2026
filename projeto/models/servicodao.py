@@ -3,11 +3,17 @@ import json
 
 class ServicoDAO:
     def __init__(self):
-        self.__arquivo = "servico.json"
+        self.__arquivo = "servicos.json"
         self.__objetos = []
         self.__abrir()
 
     def inserir(self, obj):
+        # gerar um novo id com o maior valor existente mais um
+        id = 0
+        if len(self.__objetos) > 0:
+            for aux in self.__objetos:
+                if aux.get_id() > id: id = aux.get_id()
+        obj.set_id(id + 1)
         self.__objetos.append(obj)
         self.__salvar()
 
@@ -48,3 +54,4 @@ class ServicoDAO:
         arquivo = open(self.__arquivo, mode = "w")
         json.dump(self.__objetos, arquivo, default = Servico.to_json, indent = 2)
         arquivo.close()
+        

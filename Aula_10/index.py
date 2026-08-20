@@ -1,7 +1,9 @@
 import streamlit as st
 from retanguloUI import RetanguloUI
+from pacienteUI import PacienteUI
+PacienteUI.main()
 
-RetanguloUI.main()
+#RetanguloUI.main()
 
 #st.header("POO em Python com Streamlit")
 
