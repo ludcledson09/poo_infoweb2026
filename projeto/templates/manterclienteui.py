@@ -20,33 +20,33 @@ class ManterClienteUI:
         df = pd.DataFrame(list_dic)
         st.dataframe(df)
 
-def inserir():
-  nome = st.text_input("Informe o nome")
-  email = st.text_input("Informe o e-mail")
-  fone = st.text_input("Informe o fone")
-  if st.button("Inserir"):
-    Service.cliente_inserir(nome, email, fone)
-    st.success("Cliente inserido com sucesso")
-    time.sleep(2)
-    st.rerun()
-def atualizar():
-   clientes = Service.cliente_listar()
-   if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
-   else:
-    op = st.selectbox("Atualização de Clientes", clientes)
-    nome = st.text_input("Novo nome", op.get_nome())
-    email = st.text_input("Novo e-mail", op.get_email())
-    fone = st.text_input("Novo fone", op.get_fone())
-    if st.button("Atualizar"):
-       id = op.get_id()
-       Service.cliente_atualizar(id,nome, email, fone)
-       st.success("Cliente atualizado com sucesso")
-def excluir():
-    clientes = Service.cliente_listar()
-    if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
-    else:
-       op = st.selectbox("Exclusão de Clientes", clientes)
-       if st.button("Excluir"):
-        id = op.get_id()
-        Service.cliente_excluir(id)
-        st.success("Cliente excluído com sucesso")
+    def inserir():
+        nome = st.text_input("Informe o nome")
+        email = st.text_input("Informe o e-mail")
+        fone = st.text_input("Informe o fone")
+        if st.button("Inserir"):
+            Service.cliente_inserir(nome, email, fone)
+            st.success("Cliente inserido com sucesso")
+            time.sleep(2)
+            st.rerun()
+    def atualizar():
+        clientes = Service.cliente_listar()
+        if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
+        else:
+            op = st.selectbox("Atualização de Clientes", clientes)
+            nome = st.text_input("Novo nome", op.get_nome())
+            email = st.text_input("Novo e-mail", op.get_email())
+            fone = st.text_input("Novo fone", op.get_fone())
+            if st.button("Atualizar"):
+                id = op.get_id()
+                Service.cliente_atualizar(id,nome, email, fone)
+                st.success("Cliente atualizado com sucesso")
+    def excluir():
+        clientes = Service.cliente_listar()
+        if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
+        else:
+            op = st.selectbox("Exclusão de Clientes", clientes)
+            if st.button("Excluir"):
+                id = op.get_id()
+                Service.cliente_excluir(id)
+                st.success("Cliente excluído com sucesso")
