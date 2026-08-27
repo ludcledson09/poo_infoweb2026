@@ -29,6 +29,9 @@ class ManterServicoUI:
             time.sleep(2)
             st.rerun()
     def atualizar():
+        
+
+        
         servicos = Service.servico_listar()
         if len(servicos) == 0: st.write("Nenhum servico cadastrado")
         else:
