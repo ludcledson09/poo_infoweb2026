@@ -4,7 +4,7 @@ from models.servico import Servico
 from models.servicodao import ServicoDAO
 from models.horario import Horario
 from models.horariodao import HorarioDAO
-
+from models.atendimentodao import AtendimentoDAO
 
 class Service:
     @staticmethod
