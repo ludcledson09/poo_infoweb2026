@@ -16,10 +16,10 @@ class Horario:
     def get_id_servico(self): return self.__id_servico
 
     def set_id(self, id): self.__id = id
-    def set_id(self, data): self.__data = data
-    def set_id(self,confirmado ): self.__confirmado = confirmado
-    def set_id(self, cliente): self.__cliente = cliente
-    def set_id(self, servico): self.__servico = servico
+    def set_data(self, data): self.__data = data
+    def set_confirmado(self,confirmado ): self.__confirmado = confirmado
+    def set_id_cliente(self, cliente): self.__id_cliente = cliente
+    def set_id_servico(self, servico): self.__id_servico = servico
     
     def to_json(self):
         dic = {"id":self.__id,"data":self.__data.strftime("%d/%m/%Y %H:%M"),\
@@ -28,7 +28,7 @@ class Horario:
         return dic
     @staticmethod
     def from_json(dic):
-        horario = Horario (dic["id"], datetime.strptime(dic["data"],"%d/%m/%Y%H:%M"))
+        horario = Horario (dic["id"], datetime.strptime(dic["data"],"%d/%m/%Y %H:%M"))
         horario.set_confirmado(dic["confirmado"])
         horario.set_id_cliente(dic["id_cliente"])
         horario.set_id_servico(dic["id_servico"])
