@@ -24,11 +24,11 @@ class Endereço:
     def get_id_cliente(self) : return self.__id_cliente
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__id_cliente}"
+        return f"{self.__id} - {self.__nome} - {self.__endereço} - {self.__id_cliente}"
     
     def to_json(self):
-        return { "id":self.__id, "nome":self.__nome, "email":self.__email, "fone":self.__id_cliente }
+        return { "id":self.__id, "nome":self.__nome, "endereço":self.__endereço, "id_cliente":self.__id_cliente }
     
     @staticmethod
     def from_json(dic):
-        return Endereço(dic["id"], dic["nome"], dic["email"], dic["id_cliente"])
+        return Endereço(dic["id"], dic["nome"], dic["endereço"], dic["id_cliente"])

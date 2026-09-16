@@ -30,7 +30,7 @@ class ManterEndereçoUI:
             time.sleep(2)
             st.rerun()
     def atualizar():
-        endereços = Service.cliente_listar()
+        endereços = Service.endereço_listar()
         if len(endereços) == 0: st.write("Nenhum endereço cadastrado")
         else:
             op = st.selectbox("Atualização de Endereços", endereços)
@@ -42,7 +42,7 @@ class ManterEndereçoUI:
                 Service.enderço_atualizar(id,nome, endereço, int(id_cliente) )
                 st.success("Endereço atualizado com sucesso")
     def excluir():
-        endereços = Service.cliente_listar()
+        endereços = Service.endereço_listar()
         if len(endereços) == 0: st.write("Nenhum endereço cadastrado")
         else:
             op = st.selectbox("Exclusão de Endereços",endereços )
