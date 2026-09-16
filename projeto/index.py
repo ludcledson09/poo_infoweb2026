@@ -12,7 +12,7 @@ class IndexUI:
         if op == "Serviços": ManterServicoUI.main()
         if op == "Horários": ManterHorarioUI.main()
         if op == "Atendimentos": ManterAtendimentoUI.main()
-        if op == "Endereço": ManterEndereçoUI.main()
+        if op == "Endereços": ManterEndereçoUI.main()
         
 
 IndexUI.main()
