@@ -88,11 +88,11 @@ class Service:
     def Atendimento_excluir(id):
         AtendimentoDAO().excluir(id)
     @staticmethod
-    def endereço_inserir(nome, email, endereço, id_cliente ):
-        obj = Cliente(0, nome, email, endereço, id_cliente )
+    def endereço_inserir(nome, endereço, id_cliente ):
+        obj = Endereço(0, nome, endereço, id_cliente )
         EndereçoDAO().inserir(obj)
     @staticmethod
-    def cliente_listar():
+    def endereço_listar():
       return EndereçoDAO().listar()
     @staticmethod
     def endereço_listar_id(id):
@@ -102,6 +102,6 @@ class Service:
       obj = Endereço(id, nome, endereço , id_cliente)
       EndereçoDAO().atualizar(obj)
     @staticmethod
-    def cliente_excluir(id):
+    def endereço_excluir(id):
         EndereçoDAO().excluir(id)
         
