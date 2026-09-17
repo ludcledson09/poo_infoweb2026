@@ -8,6 +8,9 @@ from models.atendimento import Atendimento
 from models.atendimentodao import AtendimentoDAO
 from models.endereço import Endereço
 from models.endereçodao import EndereçoDAO
+from models.profissional import Profissional
+from models.profissionaldao import ProfissionalDAO
+
 
 class Service:
     @staticmethod
@@ -97,11 +100,29 @@ class Service:
     @staticmethod
     def endereço_listar_id(id):
        return EndereçoDAO().listar_id(id)
+    
     @staticmethod
-    def endereço_atualizar(id, nome, endereço , id_cliente ):
-      obj = Endereço(id, nome, endereço , id_cliente)
-      EndereçoDAO().atualizar(obj)
+    def profissional_atualizar(id, nome, email, especialidade, senha):
+       obj =  Profissional(id, nome, email, especialidade, senha)
+       ProfissionalDAO().atualizar(obj)
     @staticmethod
     def endereço_excluir(id):
-        EndereçoDAO().excluir(id)
-        
+        ProfissionalDAO().excluir(id)
+    @staticmethod
+    def profissional_inserir(nome ,email, especialidade, senha ):
+      obj = Profissional(0, nome, email, especialidade, senha )
+      ProfissionalDAO().inserir(obj)
+    @staticmethod
+    def profissional_listar():
+        return ProfissionalDAO().listar()
+    @staticmethod
+    def profissional_listar_id(id):
+        return ProfissionalDAO().listar_id(id)
+    @staticmethod
+    def profissional_atualizar(id, nome, endereço , id_cliente ):
+        obj = Endereço(id, nome, endereço , id_cliente)
+        ProfissionalDAO().atualizar(obj)
+    @staticmethod
+    def profissional_excluir(id):
+        ProfissionalDAO().excluir(id)
+            
