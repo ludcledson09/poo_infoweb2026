@@ -14,5 +14,37 @@
     "id_cliente": 1,
     "id_servico": 2,
     "id_profissional": 1
+  },
+  {
+    "id": 4,
+    "data": "29/09/2026 20:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 5,
+    "data": "29/09/2026 21:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 6,
+    "data": "29/09/2026 22:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 3,
+    "data": "29/09/2026 19:00",
+    "confirmado": false,
+    "id_cliente": 2,
+    "id_servico": 2,
+    "id_profissional": 1
   }
 ]

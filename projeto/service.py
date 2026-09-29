@@ -153,3 +153,21 @@ class Service:
             Service.horario_inserir(x, False, None, None, id_profissional)
             # passar para o horário seguinte
             x = x + delta
+    @staticmethod
+    def horario_visualizarminhaagenda(id_profissional):
+         r = []
+         agora = datetime.now()
+         for h in Service.horario_listar():
+             if  h.get_id_profissional() == id_profissional:
+                 r.append(h)
+         r.sort(key= lambda h : h.get_data())
+         return r
+    @staticmethod
+    def horario_visualizarmeusservicos(id_cliente):
+         r = []
+         agora = datetime.now()
+         for h in Service.horario_listar():
+             if  h.get_id_cliente() == id_cliente:
+                 r.append(h)
+         r.sort(key= lambda h : h.get_data())
+         return r
