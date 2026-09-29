@@ -9,6 +9,7 @@ from models.atendimentodao import AtendimentoDAO
 from models.profissional import Profissional
 from models.profissionaldao import ProfissionalDAO
 from datetime import datetime
+from datetime import datetime, timedelta
 
 class Service:
     @staticmethod
@@ -141,3 +142,14 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()}
         return None
+    @staticmethod
+    def horario_abrir_minha_agenda(data, horario_inicio, horario_fim, intervalo, id_profissional):
+        data_inicio = datetime.strptime(data + " " + horario_inicio, "%d/%m/%Y %H:%M")
+        data_fim = datetime.strptime(data + " " + horario_fim, "%d/%m/%Y %H:%M")
+        delta = timedelta(minutes = intervalo)
+        x = data_inicio
+        while x <= data_fim:
+            # inserir um horário
+            Service.horario_inserir(x, False, None, None, id_profissional)
+            # passar para o horário seguinte
+            x = x + delta
