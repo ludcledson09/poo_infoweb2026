@@ -1,0 +1,41 @@
+# Conversor de moeda fictícia para Peso Argentino (ARS)
+
+def converter_para_ars(valor_boró, taxa):
+    """
+    Converte valor de moeda fictícia para ARS.
+    :param valor_ficticio: valor na moeda fictícia (float)
+    :param taxa: taxa de conversão fictícia (float)
+    :return: valor convertido em ARS
+    """
+    if taxa <= 0:
+        raise ValueError("A taxa de conversão deve ser maior que zero.")
+    return valor_boró * taxa
+
+
+def main():
+    print("=== Conversor de Moeda Fictícia para Peso Argentino ===")
+    
+    try:
+        # Entrada do valor na moeda fictícia
+        valor_boró = float(input("Digite o valor no BRO: "))
+        if valor_boró < 0:
+            print("O valor não pode ser negativo.")
+            return
+        
+        # Entrada da taxa fictícia
+        taxa = float(input("Digite a taxa fictícia (quantos ARS por 1 moeda fictícia): "))
+        
+        # Conversão
+        valor_ars = converter_para_ars(valor_boró, taxa)
+        
+        # Resultado formatado
+        print(f"{valor_boró:.2f} borós equivalem a {valor_ars:.2f} ARS.")
+    
+    except ValueError as e:
+        print(f"Erro: {e}")
+    except Exception as e:
+        print(f"Ocorreu um erro inesperado: {e}")
+
+
+if __name__ == "__main__":
+    main()
