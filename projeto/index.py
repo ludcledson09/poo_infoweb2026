@@ -9,8 +9,10 @@ from templates.perfilclienteui import PerfilClienteUI
 from templates.perfilprofissionalui import PerfilProfissionalUI
 from templates.agendarservicoui import AgendarServicoUI
 from templates.abrirminhaagendaui import AbrirMinhaAgendaUI
-from templates.visualizarminhaagendaui import VisualizarMinhaAgendaUI
 from templates.visualizarmeusservicosui import VisualizarMeusServicosUI
+from templates.visualizarminhaagendaui import VisualizarMinhaAgendaUI
+from templates.confirmarservicoui import ConfirmarServicoUI
+from templates.alterarsenhaui import AlterarSenhaUI
 
 from service import Service
 import streamlit as st
@@ -23,25 +25,26 @@ class IndexUI:
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados","Agendar Serviço","Visualizar Meus Serviços"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Meus Serviços"])
         if op == "Meus Dados": PerfilClienteUI.main()
         if op == "Agendar Serviço": AgendarServicoUI.main()
-        if op == "Visualizar Meus Serviços": VisualizarMeusServicosUI.main()
-                
+        if op == "Meus Serviços": VisualizarMeusServicosUI.main()
+
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados","Abrir Minha Agenda","Visualizar Minha Agenda"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Minha Agenda", "Confirmar Serviço"])
         if op == "Meus Dados": PerfilProfissionalUI.main()
         if op == "Abrir Minha Agenda": AbrirMinhaAgendaUI.main()
-        if op == "Visualizar Minha Agenda": VisualizarMinhaAgendaUI.main()
-
+        if op == "Minha Agenda": VisualizarMinhaAgendaUI.main()
+        if op == "Confirmar Serviço": ConfirmarServicoUI.main()
 
     def menu_admin():
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horários", "Profissionais", "Atendimentos"])
+        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horários", "Profissionais", "Atendimentos","Alterar Senha"])
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == "Horários": ManterHorarioUI.main()
         if op == "Profissionais": ManterProfissionalUI.main()
         if op == "Atendimentos": ManterAtendimentoUI.main()
+        if op == "Alterar Senha": AlterarSenhaUI.main()
 
     def sair_do_sistema():
         if st.sidebar.button("Sair"):
@@ -66,6 +69,5 @@ class IndexUI:
         Service.cliente_criar_admin()
         # monta o sidebar
         IndexUI.sidebar()
-
 
 IndexUI.main()

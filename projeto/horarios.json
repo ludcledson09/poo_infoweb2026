@@ -40,9 +40,41 @@
     "id_profissional": 1
   },
   {
+    "id": 7,
+    "data": "06/10/2026 19:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 8,
+    "data": "06/10/2026 20:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 9,
+    "data": "06/10/2026 21:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
+    "id": 10,
+    "data": "06/10/2026 22:00",
+    "confirmado": false,
+    "id_cliente": null,
+    "id_servico": null,
+    "id_profissional": 1
+  },
+  {
     "id": 3,
     "data": "29/09/2026 19:00",
-    "confirmado": false,
+    "confirmado": true,
     "id_cliente": 2,
     "id_servico": 2,
     "id_profissional": 1
