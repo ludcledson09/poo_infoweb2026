@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "data": "10/10/2026 17:10",
+    "queixa_principal": "dor nas costas",
+    "historico_saude": "perfeito",
+    "avalia\u00e7\u00e3o": "massagem",
+    "prescri\u00e7\u00e3o": "massagem nas costas",
+    "id_horario": 2,
+    "total": 100.0,
+    "pago": true
+  },
+  {
+    "id": 2,
+    "data": "11/10/2026 17:17",
+    "queixa_principal": "jiouio",
+    "historico_saude": "uouhiouio",
+    "avalia\u00e7\u00e3o": "huoihuio",
+    "prescri\u00e7\u00e3o": "uiouiouio",
+    "id_horario": 2,
+    "total": 100.0,
+    "pago": false
+  }
+]

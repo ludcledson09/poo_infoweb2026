@@ -23,7 +23,7 @@ class ManterAtendimentoUI:
                 cliente= Service.cliente_listar_id(horario.get_id_cliente())
                 if cliente != None: cliente = cliente.get_nome()
                 dic.append({"id" : obj.get_id(), "data" : obj.get_data(),
-                "queixa principal" : obj.get_confirmado(), "cliente" : cliente})
+                "queixa principal" : obj.get_queixa_principal(), "cliente" : cliente})
             df = pd.DataFrame(dic)
             st.dataframe(df)
 
@@ -35,8 +35,10 @@ class ManterAtendimentoUI:
         avaliação = st.text_input("Informe a avaliação")
         prescrição  = st.text_input("Informe a prescrição")
         horario  = st.selectbox("Informe o horario", horarios)
+        total  = st.text_input("Informe o total")
+        pago  = st.checkbox("Pago!")
         if st.button("Inserir"):
-            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id())
+            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id(), float(total), pago)
             st.success("Atendimento inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -50,14 +52,16 @@ class ManterAtendimentoUI:
             data = st.text_input("Informe a nova data e horário do atendimento", op.get_data().strftime("%d/%m/%Y %H:%M"))
             queixa_principal = st.text_input("Informe a nova queixa principal", op.get_queixa_principal())
             historico_saude  = st.text_input("Informe o novo historico de saude", op.get_historico_saude())
-            avaliação = st.text_input("Informe a nova avaliação", op.get_avalição())
+            avaliação = st.text_input("Informe a nova avaliação", op.get_avaliação())
             prescrição  = st.text_input("Informe a nova prescrição", op.get_prescrição())
             horario  = st.text_input("Informe o novo horario", horarios, \
                                      next((i for i, c in enumerate(horarios) if c.get_id() == op.get_id_horario()), None))
+            total = st.text_input("Informe o novo total", op.get_total())
+            pago  = st.checkbox("Confirmar Pago!")
             if st.button("Atualizar"):
                 Service.atendimento_atualizar(op.get_id(),datetime.strptime(data, "%d/%m/%Y %H:%M"),\
                                               queixa_principal, historico_saude, avaliação, prescrição,\
-                                                horario.get_id())
+                                                horario.get_id(), float(total), pago)
                 st.success("Atendimento atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
