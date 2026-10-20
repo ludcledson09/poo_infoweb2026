@@ -182,3 +182,14 @@ class Service:
                 r.append(h)
         r.sort (key = lambda h : h.get_data())
         return r
+    @staticmethod
+    def numero_atendimentos():
+        r = ProfissionalDAO().listar()
+        r.sort(key = lambda obj : obj.get_nome().casefold())
+        dic = {}
+        for obj in r:
+            dic[obj.get_id()] = 0
+        horarios = HorarioDAO().listar()
+        for h in horarios:
+            if h.get_confirmado(): dic[h.get_id_profissional()] = dic[h.get_id_profissional()] + 1  
+        return dic
