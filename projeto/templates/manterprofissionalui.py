@@ -26,8 +26,11 @@ class ManterProfissionalUI:
         especialidade = st.text_input("Informe a especialidade")
         senha = st.text_input("Informe a senha")
         if st.button("Inserir"):
-            Service.profissional_inserir(nome, email, especialidade, senha)
-            st.success("Profissional inserido com sucesso")
+            try:
+              Service.profissional_inserir(nome, email, especialidade, senha)
+              st.success("Profissional inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
     def atualizar():
@@ -40,15 +43,25 @@ class ManterProfissionalUI:
             especialidade = st.text_input("Nova especialidade", op.get_especialidade())
             senha = st.text_input("Nova senha", op.get_senha())
             if st.button("Atualizar"):
-                id = op.get_id()
-                Service.profissional_atualizar(id, nome, email, especialidade, senha)
-                st.success("Profissional atualizado com sucesso")
+                try:
+                  id = op.get_id()
+                  Service.profissional_atualizar(id, nome, email, especialidade, senha)
+                  st.success("Profissional atualizado com sucesso")
+                except ValueError as erro:
+                   st.error(erro)
+                time.sleep(2)
+                st.rerun()
     def excluir():
         profissionais = Service.profissional_listar()
         if len(profissionais) == 0: st.write("Nenhum cliente cadastrado")
         else:
             op = st.selectbox("Exclusão de Profissionais", profissionais)
             if st.button("Excluir"):
-                id = op.get_id()
-                Service.profissional_excluir(id)
-                st.success("Profissional excluído com sucesso")
+                try:
+                    id = op.get_id()
+                    Service.profissional_excluir(id)
+                    st.success("Profissional excluído com sucesso")
+                except ValueError as erro:
+                   st.error(erro)
+                   time.sleep(2)
+                   st.rerun()

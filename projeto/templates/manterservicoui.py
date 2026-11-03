@@ -24,14 +24,17 @@ class ManterServicoUI:
         descricao = st.text_input("Informe a descricao")
         valor = st.text_input("Informe o valor")
         if st.button("Inserir"):
-            Service.servico_inserir(descricao, float(valor))
-            st.success("Servico inserido com sucesso")
+            try:
+               Service.servico_inserir(descricao, float(valor))
+               st.success("Servico inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
+            time.sleep(2)
+            st.rerun()
+            st.write("Descrição e/ou valor inválidos")
             time.sleep(2)
             st.rerun()
     def atualizar():
-        
-
-        
         servicos = Service.servico_listar()
         if len(servicos) == 0: st.write("Nenhum servico cadastrado")
         else:
@@ -39,14 +42,26 @@ class ManterServicoUI:
             descricao = st.text_input("Nova descricao", op.get_descricao())
             valor = st.text_input("Novo valor", op.get_valor())
             if st.button("Atualizar"):
-                Service.servicos_atualizar(descricao,float(valor))
-                st.success("Servico atualizado com sucesso")
+                try:
+                    id = op.get_id()
+                    Service.servicos_atualizar(id, descricao,float(valor))
+                    st.success("Servico atualizado com sucesso"),
+                except ValueError as erro:
+                    st.error(erro)
+                time.sleep(2)
+                st.rerun()
+
     def excluir():
         servicos = Service.servico_listar()
         if len(servicos) == 0: st.write("Nenhum servico cadastrado")
         else:
             op = st.selectbox("Exclusão de Servicos", servicos)
             if st.button("Excluir"):
-                id = op.get_id()
-                Service.servico_excluir(id)
-                st.success("Servico excluído com sucesso")
+               try:
+                    id = op.get_id()
+                    Service.servico_excluir(id)
+                    st.success("Servico excluído com sucesso")
+               except ValueError as erro:
+                   st.error(erro)
+                   time.sleep(2)
+                   st.rerun()

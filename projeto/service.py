@@ -46,8 +46,12 @@ class Service:
 
     @staticmethod
     def servico_inserir(descricao, valor):
-        obj = Servico(0, descricao, valor)
-        ServicoDAO().inserir(obj)
+        # verifica se a descrição já existe
+        for obj in Service.servico_listar():
+            if obj.get_descricao() == descricao:
+                raise ValueError("Serviço já cadastrado")
+        c = Servico(0, descricao, valor)
+        ServicoDAO().inserir(c)
     @staticmethod
     def servico_listar():
         r = ServicoDAO().listar()
@@ -58,11 +62,20 @@ class Service:
         return ServicoDAO().listar_id(id)
     @staticmethod
     def servico_atualizar(id, descricao, valor):
-        obj = Servico(id, descricao, valor)
-        ServicoDAO().atualizar(obj)
+        # verifica se a descrição já existe em outro serviço
+        for obj in Service.servico_listar():
+            if obj.get_id() != id and obj.get_descricao() == descricao:
+                raise ValueError("Descrição já cadastrada em outro serviço")
+            c = Servico(id, descricao, valor)  
+            ServicoDAO().atualizar(c)             
     @staticmethod
     def servico_excluir(id):
-        ServicoDAO().excluir(id)
+        # verifica se o serviço já foi agendado alguma vez
+        for obj in Service.horario_listar():
+            if obj.get_id_servico() == id:
+                raise ValueError("Serviço já agendado: não é possível excluir")
+        c = Servico(id, "sem descrição", 0)
+        ServicoDAO().excluir(c)
 
 
     @staticmethod
@@ -80,6 +93,16 @@ class Service:
     def horario_listar_id(id):
         return HorarioDAO().listar_id(id)
     @staticmethod
+    def horario_listar_hoje():
+        r = []
+        agora = datetime.now()
+        for h in Service.horario_listar():
+          if h.get_data().date()== agora.date():
+            r.append(h)
+        r.sort(key= lambda h : h.get_data())
+        return r
+    
+    @staticmethod
     def horario_atualizar(id, data, confirmado, id_cliente, id_servico,id_profissional):
         c = Horario(id, data)
         c.set_confirmado(confirmado)
@@ -91,14 +114,14 @@ class Service:
     def horario_excluir(id):
         HorarioDAO().excluir(id)
     def horario_listar_disponiveis(id_profissional):
-     r = []
-     agora = datetime.now()
-     for h in Service.horario_listar():
-         if h.get_data() >= agora and h.get_confirmado() == False\
-         and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
-             r.append(h)
-     r.sort(key= lambda h : h.get_data())
-     return r
+        r = []
+        agora = datetime.now()
+        for h in Service.horario_listar():
+          if h.get_data() >= agora and h.get_confirmado() == False\
+          and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
+            r.append(h)
+        r.sort(key= lambda h : h.get_data())
+        return r
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):
         obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago)

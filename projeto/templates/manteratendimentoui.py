@@ -38,8 +38,11 @@ class ManterAtendimentoUI:
         total  = st.text_input("Informe o total")
         pago  = st.checkbox("Pago!")
         if st.button("Inserir"):
-            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id(), float(total), pago)
-            st.success("Atendimento inserido com sucesso")
+            try:
+                Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id(), float(total), pago)
+                st.success("Atendimento inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)  
             time.sleep(2)
             st.rerun()
 
@@ -59,10 +62,13 @@ class ManterAtendimentoUI:
             total = st.text_input("Informe o novo total", op.get_total())
             pago  = st.checkbox("Confirmar Pago!")
             if st.button("Atualizar"):
-                Service.atendimento_atualizar(op.get_id(),datetime.strptime(data, "%d/%m/%Y %H:%M"),\
-                                              queixa_principal, historico_saude, avaliação, prescrição,\
-                                                horario.get_id(), float(total), pago)
-                st.success("Atendimento atualizado com sucesso")
+                try:
+                    Service.atendimento_atualizar(op.get_id(),datetime.strptime(data, "%d/%m/%Y %H:%M"),\
+                                                queixa_principal, historico_saude, avaliação, prescrição,\
+                                                    horario.get_id(), float(total), pago)
+                    st.success("Atendimento atualizado com sucesso")
+                except ValueError as erro:
+                       st.error(erro)
                 time.sleep(2)
                 st.rerun()
 
@@ -72,8 +78,11 @@ class ManterAtendimentoUI:
         else:
             op = st.selectbox("Exclusão de Atendimento", atendimentos)
             if st.button("Excluir"):
-                Service.atendimento_excluir(op.get_id())
-                st.success("Atendimento excluído com sucesso")
+                try:
+                    Service.atendimento_excluir(op.get_id())
+                    st.success("Atendimento excluído com sucesso")
+                except ValueError as erro:
+                   st.error(erro)
                 time.sleep(2)
                 st.rerun()
 

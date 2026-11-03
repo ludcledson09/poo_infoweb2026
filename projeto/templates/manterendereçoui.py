@@ -25,8 +25,11 @@ class ManterEndereçoUI:
         endereço = st.text_input("Informe o endereço")
         id_cliente = st.text_input("Informe o id_cliente")
         if st.button("Inserir"):
-            Service.endereço_inserir(nome, endereço, int(id_cliente))
-            st.success("Endereço inserido com sucesso")
+            try:
+                Service.endereço_inserir(nome, endereço, int(id_cliente))
+                st.success("Endereço inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
     def atualizar():
@@ -38,15 +41,25 @@ class ManterEndereçoUI:
             endereço = st.text_input("Novo endereço", op.get_endereço())
             id_cliente = st.text_input("Novo id_cliente", op.get_id_cliente())
             if st.button("Atualizar"):
-                id = op.get_id()
-                Service.enderço_atualizar(id,nome, endereço, int(id_cliente) )
-                st.success("Endereço atualizado com sucesso")
+               try:
+                    id = op.get_id()
+                    Service.enderço_atualizar(id,nome, endereço, int(id_cliente) )
+                    st.success("Endereço atualizado com sucesso")
+               except ValueError as erro:
+                   st.error(erro) 
+               time.sleep(2)
+               st.rerun()
     def excluir():
         endereços = Service.endereço_listar()
         if len(endereços) == 0: st.write("Nenhum endereço cadastrado")
         else:
             op = st.selectbox("Exclusão de Endereços",endereços )
             if st.button("Excluir"):
-                id = op.get_id()
-                Service.endereço_excluir(id)
-                st.success("Endereço excluído com sucesso")
+                try:
+                    id = op.get_id()
+                    Service.endereço_excluir(id)
+                    st.success("Endereço excluído com sucesso")
+                except ValueError as erro:
+                    st.error(erro) 
+                time.sleep(2)
+                st.rerun()
