@@ -1,10 +1,10 @@
-from models.atendimentoitens import AtendimentoItens
-from models.dao import DAO
+from models.profissional import Profissional
+from projeto.dao_sql.dao import DAO
 import json
 
-class AtendimentoItensDAO(DAO):
+class ProfissionalDAO(DAO):
     def __init__(self):
-            super().__init__("atendimentositens.json")
+        super().__init__("profissionais.json")
 
     def _abrir(self):  
         try:  
@@ -13,12 +13,12 @@ class AtendimentoItensDAO(DAO):
             arquivo.close()
             self._objetos = []
             for dic in list_dic:
-                obj = AtendimentoItens.from_json(dic)
+                obj = Profissional.from_json(dic)
                 self._objetos.append(obj)
         except FileNotFoundError:
             pass
 
     def _salvar(self):    
         arquivo = open(self._arquivo, mode = "w")
-        json.dump(self._objetos, arquivo, default = AtendimentoItens.to_json, indent = 2)
+        json.dump(self._objetos, arquivo, default = Profissional.to_json, indent = 2)
         arquivo.close()
