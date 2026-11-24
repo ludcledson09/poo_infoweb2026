@@ -44,7 +44,7 @@ class ManterServicoUI:
             if st.button("Atualizar"):
                 try:
                     id = op.get_id()
-                    Service.servicos_atualizar(id, descricao,float(valor))
+                    Service.servico_atualizar(id, descricao,float(valor))
                     st.success("Servico atualizado com sucesso"),
                 except ValueError as erro:
                     st.error(erro)

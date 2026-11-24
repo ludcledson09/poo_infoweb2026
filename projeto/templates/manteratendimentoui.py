@@ -35,11 +35,10 @@ class ManterAtendimentoUI:
         avaliação = st.text_input("Informe a avaliação")
         prescrição  = st.text_input("Informe a prescrição")
         horario  = st.selectbox("Informe o horario", horarios)
-        total  = st.text_input("Informe o total")
-        pago  = st.checkbox("Pago!")
+       
         if st.button("Inserir"):
             try:
-                Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id(), float(total), pago)
+                Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"),queixa_principal, historico_saude, avaliação, prescrição, horario.get_id())
                 st.success("Atendimento inserido com sucesso")
             except ValueError as erro:
                 st.error(erro)  
@@ -47,28 +46,23 @@ class ManterAtendimentoUI:
             st.rerun()
 
     def atualizar():
-        atendimentos  = Service.atendimento_listar()
+        atendimentos = Service.atendimento_listar()
         if len(atendimentos) == 0: st.write("Nenhum atendimento cadastrado")
         else:
             horarios = Service.horario_listar()
-            op = st.selectbox("Atualização de Atendimentos", atendimentos )
+            op = st.selectbox("Atualização de Atendimentos", atendimentos)
             data = st.text_input("Informe a nova data e horário do atendimento", op.get_data().strftime("%d/%m/%Y %H:%M"))
             queixa_principal = st.text_input("Informe a nova queixa principal", op.get_queixa_principal())
-            historico_saude  = st.text_input("Informe o novo historico de saude", op.get_historico_saude())
-            avaliação = st.text_input("Informe a nova avaliação", op.get_avaliação())
-            prescrição  = st.text_input("Informe a nova prescrição", op.get_prescrição())
-            horario  = st.text_input("Informe o novo horario", horarios, \
-                                     next((i for i, c in enumerate(horarios) if c.get_id() == op.get_id_horario()), None))
-            total = st.text_input("Informe o novo total", op.get_total())
-            pago  = st.checkbox("Confirmar Pago!")
+            historico_saude = st.text_input("Informe o novo histórico de saúde", op.get_historico_saude())
+            avaliacao = st.text_input("Informe a nova avaliação", op.get_avaliação())
+            prescricao = st.text_input("Informe a nova prescrição", op.get_prescrição())
+            horario = st.selectbox("Informe o novo horário", horarios,\
+                                    next((i for i, c in enumerate(horarios) if c.get_id() == op.get_id_horario()), None))
             if st.button("Atualizar"):
-                try:
-                    Service.atendimento_atualizar(op.get_id(),datetime.strptime(data, "%d/%m/%Y %H:%M"),\
-                                                queixa_principal, historico_saude, avaliação, prescrição,\
-                                                    horario.get_id(), float(total), pago)
-                    st.success("Atendimento atualizado com sucesso")
-                except ValueError as erro:
-                       st.error(erro)
+                Service.atendimento_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"),\
+                                             queixa_principal, historico_saude, avaliacao, prescricao,\
+                                             horario.get_id())
+                st.success("Atendimento atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
 

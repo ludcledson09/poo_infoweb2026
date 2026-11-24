@@ -1,5 +1,5 @@
 from models.atendimento import Atendimento
-from projeto.dao_sql.dao import DAO
+from dao_json.dao import DAO
 import json
 
 class AtendimentoDAO(DAO):

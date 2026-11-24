@@ -1,5 +1,5 @@
 from models.horario import Horario
-from projeto.dao_sql.dao import DAO
+from dao_sql.dao import DAO
 import json
 
 class HorarioDAO(DAO):
